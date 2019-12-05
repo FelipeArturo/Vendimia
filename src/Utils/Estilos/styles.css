@@ -1,0 +1,85 @@
+@charset "UTF-8";
+
+/*.escrollvertical tbody{
+    height: 50px;
+    overflow-y: auto;
+}*/
+
+/*thead,tbody { display: block; }
+tbody {
+    height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}*/
+
+/*
+.table-fixed thead,
+.table-fixed tfoot{
+  width: 97%;
+}
+
+.table-fixed tbody {
+  height: 230px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.table-fixed thead,
+.table-fixed tbody,
+.table-fixed tfoot,
+.table-fixed tr,
+.table-fixed td,
+.table-fixed th {
+  display: block;
+}
+
+.table-fixed tbody td,
+.table-fixed thead > tr> th,
+.table-fixed tfoot > tr> td{
+  float: left;
+  border-bottom-width: 0;
+}
+*/
+
+
+#tableexportarestadisticos{
+    overflow-y:auto;
+    height: 500px;
+}
+
+
+/*
+#TableEstadisticos {
+  overflow-y: auto;
+  overflow-x: auto;
+  height: 400px;
+}
+*/
+
+
+#tableexportarestimacion{
+    overflow-y:auto;
+    height: 500px;
+}
+
+#tableexportartransaccion{
+    overflow:scroll;
+    height: 500px;
+}
+
+/*
+#tableexportarestadisticos{
+    overflow:scroll;
+    height: 500px;
+}
+
+#tableexportarestimacion{
+    overflow:scroll;
+    height: 500px;
+}
+
+#tbodytableestimacion{
+    overflow:scroll;
+    height: 600px;
+}
+*/
