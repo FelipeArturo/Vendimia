@@ -5,10 +5,14 @@ import React from 'react';
 //const Estructuras = React.lazy(() => import('./views/VistasCatalogos/Estructuras/VistaTabla'));
 //{ path: '/estructuras', name: 'Estructuras', component: Estructuras}
 const Index = React.lazy(() => import('./views/Generales/Index/index'));
+const Clientes = React.lazy(() => import('./views/Catalogos/Cliente/VistaTablaCliente/TablaCliente'));
+const Articulos = React.lazy(() => import('./views/Catalogos/Articulo/VistaTablaArticulo/TablaArticulo'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
-  { path: '/', exact: true, name: 'Home',component:Index }
+  { path: '/', exact: true, name: 'Home',component:Index },
+  { path:'/Clientes', name:'Catálogo Clientes', component:Clientes},
+  { path:'/Articulos', name:'Catálogo Articulos', component:Articulos}
 ];
 
 export default routes;

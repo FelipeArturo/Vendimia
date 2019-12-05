@@ -1,0 +1,6 @@
+{
+    "name": "TablaArticulo",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./TablaArticulo.js"
+  }
