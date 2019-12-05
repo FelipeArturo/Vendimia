@@ -21,7 +21,7 @@ export default {
         },
         {
           name: 'Configuración',
-          url: '/Configuración',
+          url: '/Configuracion',
           icon: 'icon-puzzle',
         }
       ]
