@@ -1,0 +1,6 @@
+{
+    "name": "VistaConfiguracion",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./VistaConfiguracion.js"
+}
