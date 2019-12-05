@@ -1,0 +1,6 @@
+{
+    "name": "TablaCliente",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./TablaCliente.js"
+  }
