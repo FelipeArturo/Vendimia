@@ -29,7 +29,7 @@ class DefaultLayout extends Component {
   constructor(){
     super();
     
-    this.AsignarValorState = this.AsignarValorState.bind(this);
+    this.asignarValorState = this.asignarValorState.bind(this);
 
     this.state={}
     this.state.ObjetoFechaSistema={
@@ -40,10 +40,10 @@ class DefaultLayout extends Component {
   componentDidMount(){
     var f = new Date();
     var fecha = f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear();
-    this.AsignarValorState('fecha',fecha,'ObjetoFechaSistema');
+    this.asignarValorState('fecha',fecha,'ObjetoFechaSistema');
   }
 
-  AsignarValorState(campo,valor,objeto){
+  asignarValorState(campo,valor,objeto){
     //Se crea el objeto que hara referncia al state
     let Obj = this.state[objeto];
     //Se crea el switch para entrar a las opciones
@@ -52,7 +52,7 @@ class DefaultLayout extends Component {
     this.setState({
         objeto:Obj
     })
-}
+  }
 
   render() {
     return (
