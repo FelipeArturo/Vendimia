@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button,Alert} from 'reactstrap';
+import Globales from '../../../../Utils/Globales';
 
 import ModalAddCliente from '../VistaModalCliente/ModalAgregarCliente';
 
