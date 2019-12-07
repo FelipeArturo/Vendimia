@@ -4,7 +4,7 @@ import { Col, Container, Row, Card, CardHeader, CardBody} from 'reactstrap';
 class Index extends Component{
     render(){
         return(
-            <div className="flex-row d-flex align-items-center app">
+            <div className="flex-row d-flex align-items-center" style={{marginTop: 20 + '%'}}>
                 <Container>
                     <Row className="justify-content-center">
                         <Col md="12">

@@ -11,10 +11,21 @@ class TablaCliente extends Component{
 
         this.onClickAgregarCliente = this.onClickAgregarCliente.bind(this);
         this.onClickCancelarCliente = this.onClickCancelarCliente.bind(this);
+        this.onClickGuardarCliente = this.onClickGuardarCliente.bind(this);
+
+        this.guardarCliente = this.guardarCliente.bind(this);
 
         this.state={}
         this.state.showModales={
             ventanaShowModal:false
+        }
+        this.state.objCliente = {
+            id:0,
+            clavecliente:'',
+            nombre:'',
+            appaterno:'',
+            apmaterno:'',
+            rfc:''
         }
     }
 
@@ -41,8 +52,25 @@ class TablaCliente extends Component{
         this.asignarValorState('ventanaShowModal',false,'showModales');
     }
 
-    onClickGuardarCliente(){
+    onClickGuardarCliente(objetoCliente){
+        if(objetoCliente.id === 0){
+            this.guardarCliente(objetoCliente);
+        }
+    }
 
+    /** Metodo que realizaran peticiones al api */
+    guardarCliente(objetoCliente){
+        //Realizar la peticion para 
+        fetch(Globales.Host + Globales.Name + Globales.Service + 'Clientes/guardarCliente',{
+            method:'POST',
+            headers:{
+                'Accept': 'application/json', 'Content-Type': 'application/json'
+            },body:JSON.stringify(objetoCliente)
+        })
+        .then(res => res.json())
+        .then(Respuesta => {
+            console.log(Respuesta);
+        })
     }
 
     render(){
@@ -54,6 +82,8 @@ class TablaCliente extends Component{
                 <ModalAddCliente
                     showModalAddCliente = {this.state.showModales.ventanaShowModal}
                     onClickCancelar = {this.onClickCancelarCliente}
+                    onClickGuardar = {this.onClickGuardarCliente}
+                    objCliente = {this.state.objCliente}
                 />
             </div>
         }else{

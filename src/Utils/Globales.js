@@ -1,5 +1,7 @@
 const Globales = {
-    Url: 'http://localhost:9000/api/'
+    Host: 'http://',
+    Name: 'localhost:8040',
+    Service: '/api/'
 }
 
 export default Globales;
