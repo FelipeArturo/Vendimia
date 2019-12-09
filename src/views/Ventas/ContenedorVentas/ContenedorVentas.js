@@ -188,10 +188,10 @@ class ContenedorVentas extends Component{
                         />
                     </div>
                 </div>
-                <div className="row" id="divBotonVenta">
+                <div className="row">
                     <div className="col-xs-12 col-sm-12 col-md-12">
                         <div className="float-xs-right float-sm-right float-md-right">
-                            <Button color="primary" onClick={this.onClickAddVenta}>
+                            <Button color="primary" onClick={this.onClickAddVenta} id="divBotonVenta">
                                 <i className="fa fa-plus mr-1"> </i>Nueva Venta
                             </Button>
                         </div>
