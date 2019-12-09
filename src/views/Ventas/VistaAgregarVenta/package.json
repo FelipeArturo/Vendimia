@@ -1,0 +1,6 @@
+{
+    "name": "VistaAgregarVenta",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./VistaAgregarVenta.js"
+}

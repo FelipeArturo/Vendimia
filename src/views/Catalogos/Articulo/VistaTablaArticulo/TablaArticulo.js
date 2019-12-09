@@ -247,7 +247,7 @@ class TablaArticulo extends Component{
         let mostrarModalCargando;
         /** Validacion para determinar si se crea el objeto para mostrar el modal o no */
         if(this.state.showModales.ventanaShowModal === true){
-            mostarModalAddArticulo = <div className="animated fade-In">
+            mostarModalAddArticulo = <div className="animated fadeIn">
                 <ModalAddArticulo
                     showModalAddArticulo = {this.state.showModales.ventanaShowModal}
                     objArticulo = {this.state.objArticulo}
@@ -257,19 +257,19 @@ class TablaArticulo extends Component{
                 />
             </div>
         }else{
-            mostarModalAddArticulo = <div className="animated fade-In">
+            mostarModalAddArticulo = <div className="animated fadeIn">
             </div>
         }
 
         if(this.state.modalCargando.mostrarModal === true){
-            mostrarModalCargando = <div className="animated fade-In">
+            mostrarModalCargando = <div className="animated fadeIn">
                 <ModalCargando
                     modalCargando = {this.state.modalCargando.mostrarModal}
                     mensaje = {this.state.modalCargando.mensaje}
                 />
             </div>
         }else{
-            mostrarModalCargando = <div className="animated fade-In"></div>
+            mostrarModalCargando = <div className="animated fadeIn"></div>
         }
 
         return(

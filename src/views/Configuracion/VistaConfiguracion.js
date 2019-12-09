@@ -229,7 +229,6 @@ class VistaConfiguracion extends Component{
         .then(Respuesta => {
             /** Validacion para determinar si trae informacion el objeto o no */
             if(Respuesta.objConfiguracion !== null){
-                console.log(Respuesta);
                 /** Se asignan los valores al state normal */
                 this.asignarValorState('id',Respuesta.objConfiguracion.id,'objConfiguracion');
                 this.asignarValorState('tasafinanciamiento',Respuesta.objConfiguracion.tasafinanciamiento,'objConfiguracion');
@@ -258,7 +257,6 @@ class VistaConfiguracion extends Component{
         })
         .then(res => res.json())
         .then(Respuesta => {
-            console.log(Respuesta);
             /** Se asigna la informacion del modal para ocultarlo */
             this.asignarValorState('mensaje','','modalCargando');
             this.asignarValorState('mostrarModal',false,'modalCargando');
@@ -279,7 +277,6 @@ class VistaConfiguracion extends Component{
         })
         .then(res => res.json())
         .then(Respuesta => {
-            console.log(Respuesta);
             /** Se asigna la informacion del modal para ocultarlo */
             this.asignarValorState('mensaje','','modalCargando');
             this.asignarValorState('mostrarModal',false,'modalCargando');
@@ -328,7 +325,7 @@ class VistaConfiguracion extends Component{
                                     Tasa Financiamiento
                                 </span>
                             </div>
-                            <input type="text" id="txtTFinanciamiento" className="form-control" maxLength={5}
+                            <input type="number" id="txtTFinanciamiento" className="form-control" maxLength={5}
                                    onChange={(e) => this.onChange(e.target,'tasafinanciamiento','objConfiguracion')}
                                    value={this.state.objConfiguracion.tasafinanciamiento} autoComplete="off"/>
                         </div>

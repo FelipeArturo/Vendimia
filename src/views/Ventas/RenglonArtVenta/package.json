@@ -1,0 +1,6 @@
+{
+    "name": "RenglonArtVenta",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./RenglonArtVenta.js"
+}

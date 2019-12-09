@@ -246,7 +246,7 @@ class TablaCliente extends Component{
         let mostrarModalCargando;
         /** Validacion para determinar si se crea el objeto para mostrar el modal o no */
         if(this.state.showModales.ventanaShowModal === true){
-            mostarModalAddCliente = <div className="animated fade-In">
+            mostarModalAddCliente = <div className="animated fadeIn">
                 <ModalAddCliente
                     showModalAddCliente = {this.state.showModales.ventanaShowModal}
                     onClickCancelar = {this.onClickCancelarCliente}
@@ -256,19 +256,19 @@ class TablaCliente extends Component{
                 />
             </div>
         }else{
-            mostarModalAddCliente = <div className="animated fade-In">
+            mostarModalAddCliente = <div className="animated fadeIn">
             </div>
         }
 
         if(this.state.modalCargando.mostrarModal === true){
-            mostrarModalCargando = <div className="animated fade-In">
+            mostrarModalCargando = <div className="animated fadeIn">
                 <ModalCargando
                     modalCargando = {this.state.modalCargando.mostrarModal}
                     mensaje = {this.state.modalCargando.mensaje}
                 />
             </div>
         }else{
-            mostrarModalCargando = <div className="animated fade-In"></div>
+            mostrarModalCargando = <div className="animated fadeIn"></div>
         }
 
         return(
