@@ -69,12 +69,12 @@ class VistaAgregarVenta extends Component {
             opcion:''
         }
         this.state.objVenta={
-            id:0,
             folioventa:'',
             clavecliente:'',
             nombre:'',
             total:0,
-            createat:''
+            cantidad:0,
+            idarticulo:0
         };
         this.state.modalCargando = {
             mostrarModal:false,
@@ -210,6 +210,8 @@ class VistaAgregarVenta extends Component {
             this.asignarValorState('clavecliente',this.state.opcionesSeleccionadas.clavecliente,'objVenta');
             this.asignarValorState('nombre',this.state.opcionesSeleccionadas.nombrecliente,'objVenta');
             this.asignarValorState('total',this.state.informacionTotal.total,'objVenta');
+            this.asignarValorState('idarticulo',this.state.opcionArticulo.id,'objVenta');
+            this.asignarValorState('cantidad',this.state.informacionArticulo.cantidad,'objVenta');
             /** realiza la peticion a guardar en la bd */
             this.guardarVenta();
             /** Se realiza el returno del prop */
