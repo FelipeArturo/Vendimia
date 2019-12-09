@@ -70,16 +70,22 @@ class ContenedorVentas extends Component{
     onClickAddVenta(){
         /** Se oculta y desoculta las ventanas */
         this.ocultarDesocultarVentanas(false,true);
+        /** Se oculta el boton de nueva venta */
+        document.getElementById("divBotonVenta").style.display="none";
     }
 
     onClickCancelar(){
         /** Se oculta y desoculta las ventanas */
         this.ocultarDesocultarVentanas(true,false);
+        /** se habilita el boton de venta */
+        document.getElementById("divBotonVenta").style.display="inline";
     }
 
     onClickGuardar(){
         /** Se oculta y desoculta las ventanas */
         this.ocultarDesocultarVentanas(true,false);
+        /** Se habilita el boton de nueva venta */
+        document.getElementById("divBotonVenta").style.display="inline";
     }
 
     /** Metodos que realizaran peticiones al backend */
@@ -182,7 +188,7 @@ class ContenedorVentas extends Component{
                         />
                     </div>
                 </div>
-                <div className="row">
+                <div className="row" id="divBotonVenta">
                     <div className="col-xs-12 col-sm-12 col-md-12">
                         <div className="float-xs-right float-sm-right float-md-right">
                             <Button color="primary" onClick={this.onClickAddVenta}>
