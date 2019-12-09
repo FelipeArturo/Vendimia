@@ -35,7 +35,16 @@ class ModalAgregarCliente extends Component{
 
     /** Metodos que se ejecutaran antes de renderizar la vista o despues de renderizar la vista */
     componentWillMount(){
-
+        this.asignarValorState('id',this.props.objCliente.id,'objetoCliente');
+        if(this.props.objCliente.clavecliente === ''){
+            this.asignarValorState('clavecliente',this.props.claveCliente,'objetoCliente');
+        }else{
+            this.asignarValorState('clavecliente',this.props.objCliente.clavecliente,'objetoCliente');
+        }        
+        this.asignarValorState('nombre',this.props.objCliente.nombre,'objetoCliente');
+        this.asignarValorState('appaterno',this.props.objCliente.appaterno,'objetoCliente');
+        this.asignarValorState('apmaterno',this.props.objCliente.apmaterno,'objetoCliente');
+        this.asignarValorState('rfc',this.props.objCliente.rfc,'objetoCliente');
     }
 
     /** Metodos para los onclicks */
@@ -88,10 +97,10 @@ class ModalAgregarCliente extends Component{
             if(target.value.match(valorPattern)){
                 document.getElementById(target.id).value = target.value.replace(valorPattern,'');
             }
-
-            /** Se asigna el valor al state */
-            this.asignarValorState(propiedad,target.value.trim(),objeto);
         }
+
+        /** Se asigna el valor al state */
+        this.asignarValorState(propiedad,target.value,objeto);
     }
 
     /** Metodo que permitira realizar la validacion de la informacion */
@@ -104,11 +113,11 @@ class ModalAgregarCliente extends Component{
                 return true;
             }else{
                 /** Se llama el metodo que se encargara de indicar si se modifico algo o no */
-                if(validaStateVsPropObj(this.state.objetoCliente,this.props.objCliente)){
+                if(validaStateVsPropObj(this.state.objetoCliente,this.props.objCliente,'clientes')){
                     return true;
                 }else{
                     /** Se asignan los valores del mensaje */
-                    this.mostrarControlMensaje("Debe al menos modificar un campo para poder actualizar.", 'danger', 'showMensaje');
+                    this.mostrarControlMensaje("Se debe modificar al menos un campo para poder actualizar.", 'danger', 'showMensaje');
                     /** Se regresa el valor de que no cumplio la condicion */
                     return false;
                 }
@@ -143,22 +152,32 @@ class ModalAgregarCliente extends Component{
         return validacion;
     }
 
-    /** Metodos que se ejecutaran para realizar peticiones al api */
-    
-
     render(){
 
         return(
             <Modal isOpen={this.props.showModalAddCliente} >
                 {this.state.objetoCliente.id === 0
                     ?
-                        <ModalHeader className="bg-primary">Nuevo Cliente</ModalHeader>
+                        <ModalHeader className="bg-primary justify-content-center">Nuevo Cliente</ModalHeader>
                     :
-                        <ModalHeader className="bg-primary">Editar Cliente</ModalHeader>
+                        <ModalHeader className="bg-primary justify-content-center">Editar Cliente</ModalHeader>
                 }
                 <ModalBody>
-                    <div>
-                    <   Alert color={this.state.showMensaje.colorHeader} isOpen={this.state.mostarModalMensaje}>
+                    <div className="row mt-3">
+                        <div className="col-xs-12 col-sm-12 col-md-12">
+                            <div className="float-xs-right float-sm-right float-md-right">
+                                <div className="input-group">
+                                    <div className="input-group-prepend" >
+                                        <span className="input-group-text text-primary">
+                                            Clave: {this.state.objetoCliente.clavecliente}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="mt-3">
+                        <Alert color={this.state.showMensaje.colorHeader} isOpen={this.state.mostarModalMensaje}>
                             {this.state.showMensaje.mensajeBody}
                         </Alert>
                     </div>
@@ -171,7 +190,8 @@ class ModalAgregarCliente extends Component{
                                     </span>
                                 </div>
                                 <input type="text" id="txtNombre" className="form-control" maxLength={30} 
-                                       onChange={(e) => this.onChange(e.target,'nombre','objetoCliente')} autoComplete="off"/>
+                                       onChange={(e) => this.onChange(e.target,'nombre','objetoCliente')} 
+                                       value = {this.state.objetoCliente.nombre} autoComplete="off"/>
                             </div>
                         </div>
                     </div>
@@ -184,7 +204,8 @@ class ModalAgregarCliente extends Component{
                                     </span>
                                 </div>
                                 <input type="text" id="txtApPaterno" className="form-control"  maxLength={20} 
-                                       onChange={(e) => this.onChange(e.target,'appaterno','objetoCliente')} autoComplete="off"/>
+                                       onChange={(e) => this.onChange(e.target,'appaterno','objetoCliente')} 
+                                       value = {this.state.objetoCliente.appaterno} autoComplete="off"/>
                             </div>
                         </div>
                     </div>
@@ -197,7 +218,8 @@ class ModalAgregarCliente extends Component{
                                     </span>
                                 </div>
                                 <input type="text" id="txtApMaterno" className="form-control" maxLength={20} 
-                                       onChange={(e) => this.onChange(e.target,'apmaterno','objetoCliente')} autoComplete="off"/>
+                                       onChange={(e) => this.onChange(e.target,'apmaterno','objetoCliente')} 
+                                       value = {this.state.objetoCliente.apmaterno} autoComplete="off"/>
                             </div>
                         </div>
                     </div>
@@ -210,7 +232,8 @@ class ModalAgregarCliente extends Component{
                                     </span>
                                 </div>
                                 <input type="text" id="txtRFC" className="form-control" maxLength={20} 
-                                       onChange={(e) => this.onChange(e.target,'rfc','objetoCliente')} autoComplete="off"/>
+                                       onChange={(e) => this.onChange(e.target,'rfc','objetoCliente')} 
+                                       value = {this.state.objetoCliente.rfc} autoComplete="off"/>
                             </div>
                         </div>
                     </div>

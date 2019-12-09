@@ -3,13 +3,16 @@ export function obtenerRegexPattern(opcion){
     var pattern = "";
     switch(opcion){
         case "nombres":
-            pattern = /[^A-Za-záéíóúÁÉÍÓÚ\s]/
+            pattern = /[^A-Za-z0-9\sáéíóúÁÉÍÓÚñÑ]/
             break;
         case "texto":
-            pattern = /[^A-Za-z0-9]/
+            pattern = /[^A-Za-z0-9ñÑ]/
             break;
         case "numero":
             pattern = /[^0-9]/
+            break;
+        case "precio":
+            pattern = /[^0-9.]/
             break;
         default:
             break;
@@ -38,7 +41,19 @@ export function aplicaValidacion(control, valor,es_numero){
 }
 
 /** Metodo que se encargara de validar que el state y el props que recibe con la informacion no sean iguales */
-export function validaStateVsPropObj(stateObj,propObj){
-    return (stateObj['nombre'] !== propObj['nombre'] || stateObj['appaterno'] !== propObj['appaterno'] || 
-       stateObj['apmaterno'] !== propObj['apmaterno'] || stateObj['rfc'] !== propObj['rfc']) ? true : false;
+export function validaStateVsPropObj(stateObj,propObj,opcion){
+    if(opcion === 'clientes'){
+        return (stateObj['nombre'] !== propObj['nombre'] || stateObj['appaterno'] !== propObj['appaterno'] || 
+            stateObj['apmaterno'] !== propObj['apmaterno'] || stateObj['rfc'] !== propObj['rfc']) ? true : false;
+    }else{
+        if(opcion === 'articulos'){
+            return (stateObj['descripcion'] !== propObj['descripcion'] || stateObj['modelo'] !== propObj['modelo'] || 
+                stateObj['precio'] !== propObj['precio'] || stateObj['existencia'] !== propObj['existencia']) ? true : false;
+        }else{
+            if(opcion === 'configuracion'){
+                return (stateObj['tasafinanciamiento'] !== propObj['tasafinanciamiento'] || stateObj['porcientoenganche'] !== propObj['porcientoenganche'] || 
+                stateObj['plazomaximo'] !== propObj['plazomaximo']) ? true : false;
+            }
+        }
+    }
 }

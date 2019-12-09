@@ -1,0 +1,6 @@
+{
+    "name": "ModalCargando",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./ModalCargando.js"
+}

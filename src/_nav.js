@@ -2,27 +2,27 @@ export default {
   items: [
     {
       name: 'Inicio',
-      icon: 'icon-puzzle',
+      icon: 'icon-home',
       children: [ 
         {
           name: 'Ventas',
           url: '/Ventas',
-          icon: 'icon-puzzle',
+          icon: 'icon-drawer',
         },
         {
           name: 'Clientes',
           url: '/Clientes',
-          icon: 'icon-puzzle',
+          icon: 'icon-people',
         },
         {
           name: 'Articulos',
           url: '/Articulos',
-          icon: 'icon-puzzle',
+          icon: 'icon-basket-loaded',
         },
         {
           name: 'Configuración',
           url: '/Configuracion',
-          icon: 'icon-puzzle',
+          icon: 'icon-settings',
         }
       ]
     }
