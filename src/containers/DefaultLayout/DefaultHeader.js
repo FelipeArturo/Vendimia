@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Nav} from 'reactstrap';
 import PropTypes from 'prop-types';
 
-import {AppSidebarToggler } from '@coreui/react';
+import {AppSidebarToggler,AppNavbarBrand } from '@coreui/react';
 
 const propTypes = {
   children: PropTypes.node,
@@ -71,10 +71,12 @@ class DefaultHeader extends Component {
 
     return (
       <React.Fragment>
+        
         <AppSidebarToggler className="d-md-down-none" display="lg" />
-
+        <Nav className="d-md-down-none" navbar></Nav>
+        <Nav className="ml-auto" navbar></Nav>
         <Nav className="mr-3" navbar>
-        <label> Fecha: {this.props.Fecha}</label>
+          <label> Fecha: {this.props.Fecha}</label>
         </Nav>
       </React.Fragment>
     );

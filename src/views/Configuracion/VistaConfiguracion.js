@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Button,Alert} from 'reactstrap';
+import { Button,Alert,Card,CardBody,CardHeader} from 'reactstrap';
 import {obtenerRegexPattern,validaStateVsPropObj,aplicaValidacion} from '../../Utils/EventosGenerales/EventoGeneral';
 import ModalCargando from '../Generales/ModalCargando/ModalCargando';
-import ViewSeparador from '../Generales/ViewSeparador/ViewSeparador';
 import Globales from '../../Utils/Globales';
 
 class VistaConfiguracion extends Component{
@@ -302,86 +301,88 @@ class VistaConfiguracion extends Component{
 
         return(
             <div className="container-fluid">
-                <div>
-                    {mostrarModalCargando}
-                </div>
-                <div>
-                    <Alert color={this.state.showMensaje.colorHeader} isOpen={this.state.mostarModalMensaje}>
-                        {this.state.showMensaje.mensajeBody}
-                    </Alert>
-                </div>
-                <div className="row">
-                    <div className="col-xs-12 col-sm-12 col-md-12">
-                        <ViewSeparador 
-                            titulo = "Configuración General"
-                        />
+                <div className="row mt-5">
+                    <div>
+                        {mostrarModalCargando}
                     </div>
-                </div>
-                <div className="row mt-3">
                     <div className="col-xs-12 col-sm-12 col-md-12">
-                        <div className="input-group">
-                            <div className="input-group-prepend" >
-                                <span className="input-group-text">
-                                    Tasa Financiamiento
-                                </span>
-                            </div>
-                            <input type="number" id="txtTFinanciamiento" className="form-control" maxLength={5}
-                                   onChange={(e) => this.onChange(e.target,'tasafinanciamiento','objConfiguracion')}
-                                   value={this.state.objConfiguracion.tasafinanciamiento} autoComplete="off"/>
-                        </div>
-                    </div>
-                </div>
-                <div className="row mt-3">
-                    <div className="col-xs-12 col-sm-12 col-md-12">
-                        <div className="input-group">
-                            <div className="input-group-prepend" >
-                                <span className="input-group-text">
-                                    % Enganche
-                                </span>
-                            </div>
-                            <input type="text" id="txtEnganche" className="form-control" maxLength={3} 
-                                   onChange={(e) => this.onChange(e.target,'porcientoenganche','objConfiguracion')}
-                                   value={this.state.objConfiguracion.porcientoenganche} autoComplete="off"/>
-                        </div>
-                    </div>
-                </div>
-                <div className="row mt-3">
-                    <div className="col-xs-12 col-sm-12 col-md-12">
-                        <div className="input-group">
-                            <div className="input-group-prepend" >
-                                <span className="input-group-text">
-                                    Plazo Máximo
-                                </span>
-                            </div>
-                            <input type="text" id="txtPlazoMaximo" className="form-control" maxLength={3}
-                                   onChange={(e) => this.onChange(e.target,'plazomaximo','objConfiguracion')}
-                                   value={this.state.objConfiguracion.plazomaximo} autoComplete="off"/>
-                        </div>
-                    </div>
-                </div>
-                <div className="row mt-3">
-                    <div className="col-xs-12 col-sm-12 col-md-12">
-                        <div className="float-md-right">
-                            <Button id="btnCancelar" className="mr-1" onClick={this.onClickCancelar} color="danger">
-                                Cancelar
-                            </Button>
-                            {this.state.objConfiguracion.id === 0 
-                                ?
-                                    <Button id="btnGuardar" onClick={this.onClickGuardar} color="primary">
-                                        Guardar
-                                    </Button>
-                                :
-                                    <React.Fragment>
-                                        <Button id="btnGuardar" onClick={this.onClickGuardar} color="primary">
-                                            Guardar
-                                        </Button>
-                                        <Button id="btnEditar" onClick={this.onClickEditar} color="success">
-                                            Editar
-                                        </Button>
-                                    </React.Fragment>
-                            }
-                            
-                        </div>
+                        <Card className="rounded">
+                            <CardHeader className="bg-primary rounded justify-content-center" style={{marginLeft:"25px",marginRight:"25px",marginTop:"-20px"}}> Configuración General </CardHeader>
+                            <CardBody>
+                                <div>
+                                    <Alert color={this.state.showMensaje.colorHeader} isOpen={this.state.mostarModalMensaje}>
+                                        {this.state.showMensaje.mensajeBody}
+                                    </Alert>
+                                </div>
+                                <div className="row mt-3">
+                                    <div className="col-xs-12 col-sm-12 col-md-12">
+                                        <div className="input-group">
+                                            <div className="input-group-prepend" >
+                                                <span className="input-group-text">
+                                                    Tasa Financiamiento
+                                                </span>
+                                            </div>
+                                            <input type="number" id="txtTFinanciamiento" className="form-control" maxLength={5}
+                                                onChange={(e) => this.onChange(e.target,'tasafinanciamiento','objConfiguracion')}
+                                                value={this.state.objConfiguracion.tasafinanciamiento} autoComplete="off"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="row mt-3">
+                                    <div className="col-xs-12 col-sm-12 col-md-12">
+                                        <div className="input-group">
+                                            <div className="input-group-prepend" >
+                                                <span className="input-group-text">
+                                                    % Enganche
+                                                </span>
+                                            </div>
+                                            <input type="text" id="txtEnganche" className="form-control" maxLength={3} 
+                                               onChange={(e) => this.onChange(e.target,'porcientoenganche','objConfiguracion')}
+                                               value={this.state.objConfiguracion.porcientoenganche} autoComplete="off"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="row mt-3">
+                                    <div className="col-xs-12 col-sm-12 col-md-12">
+                                        <div className="input-group">
+                                            <div className="input-group-prepend" >
+                                                <span className="input-group-text">
+                                                    Plazo Máximo
+                                                </span>
+                                            </div>
+                                            <input type="text" id="txtPlazoMaximo" className="form-control" maxLength={3}
+                                                   onChange={(e) => this.onChange(e.target,'plazomaximo','objConfiguracion')}
+                                                   value={this.state.objConfiguracion.plazomaximo} autoComplete="off"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="row mt-3">
+                                    <div className="col-xs-12 col-sm-12 col-md-12">
+                                        <div className="float-md-right">
+                                            <Button id="btnCancelar" className="mr-1" onClick={this.onClickCancelar} color="danger">
+                                                Cancelar
+                                            </Button>
+                                            {this.state.objConfiguracion.id === 0 
+                                                ?
+                                                    <Button id="btnGuardar" onClick={this.onClickGuardar} color="primary">
+                                                        Guardar
+                                                    </Button>
+                                                :
+                                                    <React.Fragment>
+                                                        <Button id="btnGuardar" onClick={this.onClickGuardar} color="primary">
+                                                            Guardar
+                                                        </Button>
+                                                        <Button id="btnEditar" onClick={this.onClickEditar} color="success">
+                                                            Editar
+                                                        </Button>
+                                                    </React.Fragment>
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </CardBody>
+                        </Card>
                     </div>
                 </div>
             </div>

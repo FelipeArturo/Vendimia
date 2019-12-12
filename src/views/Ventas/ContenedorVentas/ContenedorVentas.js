@@ -71,21 +71,21 @@ class ContenedorVentas extends Component{
         /** Se oculta y desoculta las ventanas */
         this.ocultarDesocultarVentanas(false,true);
         /** Se oculta el boton de nueva venta */
-        document.getElementById("divBotonVenta").style.display="none";
+        //document.getElementById("divBotonVenta").style.display="none";
     }
 
     onClickCancelar(){
         /** Se oculta y desoculta las ventanas */
         this.ocultarDesocultarVentanas(true,false);
         /** se habilita el boton de venta */
-        document.getElementById("divBotonVenta").style.display="inline";
+        //document.getElementById("divBotonVenta").style.display="inline";
     }
 
     onClickGuardar(){
         /** Se oculta y desoculta las ventanas */
         this.ocultarDesocultarVentanas(true,false);
         /** Se habilita el boton de nueva venta */
-        document.getElementById("divBotonVenta").style.display="inline";
+        //document.getElementById("divBotonVenta").style.display="inline";
     }
 
     /** Metodos que realizaran peticiones al backend */
@@ -158,7 +158,9 @@ class ContenedorVentas extends Component{
         /** Validacion para poder crear la ventana de tabla de ventas */
         if(this.state.showModales.ventanaTablaVentas === true){
             ventanaTablaVentas = <div className="animated fadeIn">
-                <VistaTablaVentas />
+                <VistaTablaVentas 
+                    onClickAddVentaVentana = {this.onClickAddVenta}
+                />
             </div>
         }else{
             ventanaTablaVentas = <div className="animated fadeIn"></div>
@@ -181,22 +183,6 @@ class ContenedorVentas extends Component{
 
         return(
             <div className="container-fluid">
-                <div className="row">
-                    <div className="col-xs-12 col-sm-12 col-md-12">
-                        <ViewSeparador 
-                            titulo = "Ventas Activas"
-                        />
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-xs-12 col-sm-12 col-md-12">
-                        <div className="float-xs-right float-sm-right float-md-right">
-                            <Button color="primary" onClick={this.onClickAddVenta} id="divBotonVenta">
-                                <i className="fa fa-plus mr-1"> </i>Nueva Venta
-                            </Button>
-                        </div>
-                    </div>
-                </div>
                 <div>
                     {ventanaTablaVentas}
                     {ventanaAddVenta}

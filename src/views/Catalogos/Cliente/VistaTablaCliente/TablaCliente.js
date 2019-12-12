@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { Button,Alert} from 'reactstrap';
+import { Button,Alert,Card,CardHeader,CardBody} from 'reactstrap';
 import Globales from '../../../../Utils/Globales';
 
 import ModalAddCliente from '../VistaModalCliente/ModalAgregarCliente';
 import RenglonCliente from '../VistaRenglonCliente/RenglonCliente';
 import ModalCargando from '../../../Generales/ModalCargando/ModalCargando';
-import ViewSeparador from '../../../Generales/ViewSeparador/ViewSeparador';
 
 class TablaCliente extends Component{
     constructor(){
@@ -273,50 +272,52 @@ class TablaCliente extends Component{
 
         return(
             <div className="container-fluid">
-                <div>
-                    {mostarModalAddCliente}
-                    {mostrarModalCargando}
-                </div>
-                <div>
-                    <Alert color={this.state.showMensaje.colorHeader} isOpen={this.state.mostarModalMensaje}>
-                        {this.state.showMensaje.mensajeBody}
-                    </Alert>
-                </div>
-                <div className="row">
-                    <div className="col-xs-12 col-sm-12 col-md-12">
-                        <ViewSeparador 
-                            titulo = "Clientes Registrados"
-                        />
+                <div className="row mt-5">
+                    <div>
+                        {mostarModalAddCliente}
+                        {mostrarModalCargando}
                     </div>
-                </div>
-                <div className="row">
                     <div className="col-xs-12 col-sm-12 col-md-12">
-                        <div className="float-xs-right float-sm-right float-md-right">
-                            <Button color="primary" onClick={this.onClickAgregarCliente}>
-                                <i className="fa fa-plus mr-1"> </i>Nuevo Cliente
-                            </Button>
-                        </div>
-                    </div>
-                </div>
-                <div className="row mt-1">
-                    <div className="col-xs-12 col-sm-12 col-md-12">
-                        <table className="table table-bordered table-sm table-hover">
-                            <thead className="thead-dark">
-                                <tr>
-                                    <th>Clave Cliente</th>
-                                    <th>Nombre</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {this.state.listadoClientes.map((e) =>
-                                    <RenglonCliente
-                                        cliente = {e}
-                                        clickEditar = {this.onClickEditarCliente}
-                                    />
-                                )}
-                            </tbody>
-                        </table>
+                        <Card className="rounded">
+                            <CardHeader className="bg-primary rounded justify-content-center" style={{marginLeft:"25px",marginRight:"25px",marginTop:"-20px"}}> Clientes Registrados </CardHeader>
+                            <CardBody>
+                                <div>
+                                    <Alert color={this.state.showMensaje.colorHeader} isOpen={this.state.mostarModalMensaje}>
+                                        {this.state.showMensaje.mensajeBody}
+                                    </Alert>
+                                </div>
+                                <div className="row">
+                                    <div className="col-xs-12 col-sm-12 col-md-12">
+                                        <div className="float-xs-right float-sm-right float-md-right">
+                                            <Button color="primary" onClick={this.onClickAgregarCliente}>
+                                                <i className="fa fa-plus mr-1"> </i>Nuevo Cliente
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="row mt-1">
+                                    <div className="col-xs-12 col-sm-12 col-md-12">
+                                        <table className="table table-bordered table-sm table-hover">
+                                            <thead className="thead-dark">
+                                                <tr>
+                                                    <th>Clave Cliente</th>
+                                                    <th>Nombre</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {this.state.listadoClientes.map((e) =>
+                                                    <RenglonCliente
+                                                        cliente = {e}
+                                                        clickEditar = {this.onClickEditarCliente}
+                                                    />
+                                                )}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </CardBody>
+                        </Card>
                     </div>
                 </div>
             </div>
