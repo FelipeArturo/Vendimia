@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { Button,Alert} from 'reactstrap';
+import { Button,Alert,Card,CardBody,CardHeader} from 'reactstrap';
 import Globales from '../../../../Utils/Globales';
 
 import ModalAddArticulo from '../VistaModalArticulo/ModalAgregarArticulo';
 import RenglonArticulo from '../VistaRenglonArticulo/RenglonArticulo';
 import ModalCargando from '../../../Generales/ModalCargando/ModalCargando';
-import ViewSeparador from '../../../Generales/ViewSeparador/ViewSeparador';
 
 class TablaArticulo extends Component{
 
@@ -274,50 +273,52 @@ class TablaArticulo extends Component{
 
         return(
             <div className="container-fluid">
-                <div>
-                    {mostarModalAddArticulo}
-                    {mostrarModalCargando}
-                </div>
-                <div>
-                    <Alert color={this.state.showMensaje.colorHeader} isOpen={this.state.mostarModalMensaje}>
-                        {this.state.showMensaje.mensajeBody}
-                    </Alert>
-                </div>
-                <div className="row">
-                    <div className="col-xs-12 col-sm-12 col-md-12">
-                        <ViewSeparador 
-                            titulo = "Articulos Registrados"
-                        />
+                <div className="row mt-5">
+                    <div>
+                        {mostarModalAddArticulo}
+                        {mostrarModalCargando}
                     </div>
-                </div>
-                <div className="row">
                     <div className="col-xs-12 col-sm-12 col-md-12">
-                        <div className="float-xs-right float-sm-right float-md-right">
-                            <Button color="primary" onClick={this.onClickAgregarArticulo}>
-                                <i className="fa fa-plus mr-1"> </i>Nuevo Articulo
-                            </Button>
-                        </div>
-                    </div>
-                </div>
-                <div className="row mt-1">
-                    <div className="col-xs-12 col-sm-12 col-md-12">
-                        <table className="table table-bordered table-sm table-hover">
-                            <thead className="thead-dark">
-                                <tr>
-                                    <th>Clave Articulo</th>
-                                    <th>Descripción</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {this.state.listadoArticulos.map((e) =>
-                                    <RenglonArticulo
-                                        articulo = {e}
-                                        clickEditar = {this.onClickEditarArticulo}
-                                    />
-                                )}
-                            </tbody>
-                        </table>
+                        <Card className="rounded">
+                            <CardHeader className="bg-primary rounded justify-content-center" style={{marginLeft:"25px",marginRight:"25px",marginTop:"-20px"}}> Articulos Registrados </CardHeader>
+                            <CardBody>
+                                <div>
+                                    <Alert color={this.state.showMensaje.colorHeader} isOpen={this.state.mostarModalMensaje}>
+                                        {this.state.showMensaje.mensajeBody}
+                                    </Alert>
+                                </div>
+                                <div className="row">
+                                    <div className="col-xs-12 col-sm-12 col-md-12">
+                                        <div className="float-xs-right float-sm-right float-md-right">
+                                            <Button color="primary" onClick={this.onClickAgregarArticulo}>
+                                                <i className="fa fa-plus mr-1"> </i>Nuevo Articulo
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="row mt-1">
+                                    <div className="col-xs-12 col-sm-12 col-md-12">
+                                        <table className="table table-bordered table-sm table-hover">
+                                            <thead className="thead-dark">
+                                                <tr>
+                                                    <th>Clave Articulo</th>
+                                                    <th>Descripción</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {this.state.listadoArticulos.map((e) =>
+                                                    <RenglonArticulo
+                                                        articulo = {e}
+                                                        clickEditar = {this.onClickEditarArticulo}
+                                                    />
+                                                )}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </CardBody>
+                        </Card>
                     </div>
                 </div>
             </div>
