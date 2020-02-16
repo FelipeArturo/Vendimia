@@ -6,7 +6,7 @@ class VistaPagosMeses extends Component{
 
         this.asignarValorState = this.asignarValorState.bind(this);
 
-        this.onClickRadioButton = this.onClickRadioButton.bind(this);
+        //this.onClickRadioButton = this.onClickRadioButton.bind(this);
 
         this.calcularInformacionMeses = this.calcularInformacionMeses.bind(this);
         this.calcularPagosMeses = this.calcularPagosMeses.bind(this);
@@ -160,7 +160,7 @@ class VistaPagosMeses extends Component{
                                 </td>
                                 <td>
                                     <div className="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" className="custom-control-input" onClick={this.onClickRadioButton} id="customRadio3" name="example" value="3"/>
+                                        <input type="radio" className="custom-control-input" onClick={() => this.onClickRadioButton()} id="customRadio3" name="example" value="3"/>
                                         <label className="custom-control-label" htmlFor="customRadio3"></label>
                                     </div>
                                 </td>
@@ -180,7 +180,7 @@ class VistaPagosMeses extends Component{
                                 </td>
                                 <td>
                                     <div className="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" className="custom-control-input" onClick={this.onClickRadioButton} id="customRadio6" name="example" value="6"/>
+                                        <input type="radio" className="custom-control-input" onClick={() => this.onClickRadioButton()} id="customRadio6" name="example" value="6"/>
                                         <label className="custom-control-label" htmlFor="customRadio6"></label>
                                     </div>
                                 </td>
@@ -200,7 +200,7 @@ class VistaPagosMeses extends Component{
                                 </td>
                                 <td>
                                     <div className="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" className="custom-control-input" onClick={this.onClickRadioButton} id="customRadio9" name="example" value="9"/>
+                                        <input type="radio" className="custom-control-input" onClick={() => this.onClickRadioButton()} id="customRadio9" name="example" value="9"/>
                                         <label className="custom-control-label" htmlFor="customRadio9"></label>
                                     </div>
                                 </td>
@@ -220,7 +220,7 @@ class VistaPagosMeses extends Component{
                                 </td>
                                 <td>
                                     <div className="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" className="custom-control-input" onClick={this.onClickRadioButton} id="customRadio12" name="example" value="12"/>
+                                        <input type="radio" className="custom-control-input" onClick={() => this.onClickRadioButton()} id="customRadio12" name="example" value="12"/>
                                         <label className="custom-control-label" htmlFor="customRadio12"></label>
                                     </div>
                                 </td>
