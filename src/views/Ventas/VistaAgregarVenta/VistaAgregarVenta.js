@@ -12,21 +12,22 @@ class VistaAgregarVenta extends Component {
         super();
 
         this.asignarValorState = this.asignarValorState.bind(this);
+        //this.onClickAgregarArticulo = this.onClickAgregarArticulo.bind(this);
 
-        this.onChangeSelectCliente = this.onChangeSelectCliente.bind(this);
-        this.onChangeSelectArticulo = this.onChangeSelectArticulo.bind(this);
-        this.onChangeInputCantidad = this.onChangeInputCantidad.bind(this);
-        this.onClickSiguiente = this.onClickSiguiente.bind(this);
-        this.onChangeRadioButton = this.onChangeRadioButton.bind(this);
-        this.onClickGuardar = this.onClickGuardar.bind(this);
-        this.onClickCancelar = this.onClickCancelar.bind(this);
+        //this.onChangeSelectCliente = this.onChangeSelectCliente.bind(this);
+        //this.onChangeSelectArticulo = this.onChangeSelectArticulo.bind(this);
+        //this.onChangeInputCantidad = this.onChangeInputCantidad.bind(this);
+        //this.onClickSiguiente = this.onClickSiguiente.bind(this);
+        //this.onChangeRadioButton = this.onChangeRadioButton.bind(this);
+        //this.onClickGuardar = this.onClickGuardar.bind(this);
+        //this.onClickCancelar = this.onClickCancelar.bind(this);
 
-        this.guardarVenta = this.guardarVenta.bind(this);
-        this.calcularInfTotalEngancheBonificacion = this.calcularInfTotalEngancheBonificacion.bind(this);
-        this.obtieneConteoVentas = this.obtieneConteoVentas.bind(this);
+        //this.guardarVenta = this.guardarVenta.bind(this);
+        //this.calcularInfTotalEngancheBonificacion = this.calcularInfTotalEngancheBonificacion.bind(this);
+        //this.obtieneConteoVentas = this.obtieneConteoVentas.bind(this);
 
-        this.mostrarControlMensaje = this.mostrarControlMensaje.bind(this);
-        this.validarInformacion = this.validarInformacion.bind(this);
+        //this.mostrarControlMensaje = this.mostrarControlMensaje.bind(this);
+        //this.validarInformacion = this.validarInformacion.bind(this);
 
         this.state={}
         this.state.mostrarVentanaPagos={
@@ -34,7 +35,8 @@ class VistaAgregarVenta extends Component {
         }
         this.state.opcionesSeleccionadas={
             clavecliente:'',
-            nombrecliente:''
+            nombrecliente:'',
+            rfccliente:''
         };
         this.state.opcionArticulo={
             clavearticulo: '',
@@ -42,7 +44,8 @@ class VistaAgregarVenta extends Component {
             existencia: 0,
             id: 0,
             modelo: '',
-            precio: 0
+            precio: 0,
+            cantidad: 1
         };
         this.state.showMensaje = {
             colorHeader:'',
@@ -50,15 +53,16 @@ class VistaAgregarVenta extends Component {
         };
         this.state.mostarModalMensaje = false;
         this.state.listadoArticulosSeleccionados=[];
+        this.state.articulosCalculaInformacion=[];
         this.state.informacionArticulo={
             cantidad:0,
             precio:0,
             importe:0
         };
         this.state.informacionTotal={
-            enganche:0,
-            bonificacionenganche:0,
-            total:0
+            enganche:parseFloat(0).toFixed(2),
+            bonificacionenganche:parseFloat(0).toFixed(2),
+            total:parseFloat(0).toFixed(2)
         };
         this.state.showMensaje = {
             colorHeader:'',
@@ -111,12 +115,14 @@ class VistaAgregarVenta extends Component {
             /** Se agrega el nombre a la propiedad del state */
             this.asignarValorState('nombrecliente',s[0].nombre,'opcionesSeleccionadas');
             this.asignarValorState('clavecliente',s[0].clavecliente,'opcionesSeleccionadas');
+            this.asignarValorState('rfccliente',s[0].rfc,'opcionesSeleccionadas');
             /** se muestra el div donde se encuentra el rfc */
             document.getElementById("divRfc").style.display="inline";
         }else{
             /** Se limpia el nombre y clave a la propiedad del state */
             this.asignarValorState('nombrecliente','','opcionesSeleccionadas');
             this.asignarValorState('clavecliente','','opcionesSeleccionadas');
+            this.asignarValorState('rfccliente','','opcionesSeleccionadas');
             /** se oculta el div donde se encuentra el rfc */
             document.getElementById("divRfc").style.display="none";
         }
@@ -152,10 +158,16 @@ class VistaAgregarVenta extends Component {
     }
 
     onChangeInputCantidad(objInformacion){
-        /** Se asigna la informacion la state */
-        this.asignarValorState('cantidad',objInformacion.cantidad,'informacionArticulo');
-        this.asignarValorState('precio',objInformacion.precio,'informacionArticulo');
-        this.asignarValorState('importe',objInformacion.importe,'informacionArticulo');
+        /** Se determina si el articulo agregado al arreglo existe o no */
+        var index = this.state.articulosCalculaInformacion.indexOf(objInformacion);
+        /** Si el articulo no existe entonces se agrega al listado */
+        if(index < 0){
+            /** Se agrega el objeto al arreglo */
+            this.state.articulosCalculaInformacion.push(objInformacion);
+        }else{
+            /** Se realiza el reemplazo del objeto */
+            this.state.articulosCalculaInformacion.splice(index,1,objInformacion);
+        }
         /** Se llama el metodo que calculara toda la informacion */
         this.calcularInfTotalEngancheBonificacion();
     }
@@ -169,29 +181,91 @@ class VistaAgregarVenta extends Component {
      *  enganche de bonificacion y enganche
     */
     calcularInfTotalEngancheBonificacion(){
-        /** Se calcula el enganche */
-        var enganche = ((parseFloat(this.props.objConfiguracion.porcientoenganche)/parseInt(100)) * parseFloat(this.state.informacionArticulo.importe)).toFixed(2);
-        /** Se asigna el enganche al state */
-        this.asignarValorState('enganche',enganche,'informacionTotal');
-        /** Se calcula la bonificacion del enganche */
-        var bonificacionEnganche = (enganche * ((parseFloat(this.props.objConfiguracion.tasafinanciamiento) * parseFloat(this.props.objConfiguracion.plazomaximo)) / parseInt(100))).toFixed(2);
-        /** Se asigna la bonificacion del enganche al state */
-        this.asignarValorState('bonificacionenganche',bonificacionEnganche,'informacionTotal');
-        /** Se calcula el total */
-        var total = (parseFloat(this.state.informacionArticulo.importe) - parseFloat(enganche) - parseFloat(bonificacionEnganche)).toFixed(2);
-        /** Se asigna el total al state */
-        this.asignarValorState('total',total,'informacionTotal');
+        /** Variables para calcular el porcentaje de enganche, Bonificacion de enganche y el total */
+        var porcentajeEnganche = parseFloat(0);
+        var bonificacionEnganche = parseFloat(0);
+        var totalAdeudo = parseFloat(0);
+        /** Se recorre el arreglo */
+        for(var i = 0; i < this.state.articulosCalculaInformacion.length;i++){
+            /** Se obtiene el objeto en la posicion del arreglo */
+            var object = this.state.articulosCalculaInformacion[i];
+            /** Se calcula el iva del producto */
+            var precioiva = (parseFloat(object.precio) * (1 + ((parseFloat(this.props.objConfiguracion.tasafinanciamiento) * parseInt(this.props.objConfiguracion.plazomaximo)) / parseFloat(100)))).toFixed(2);
+            /** Se calcula el importe del producto */
+            var importeproducto = precioiva * parseInt(object.cantidad);
+            /** Se calcula el porcentaje enganche */
+            var enganche = ((parseFloat(this.props.objConfiguracion.porcientoenganche)/parseInt(100)) * importeproducto).toFixed(2);
+            /** Se calcula la bonificacion del enganche */
+            var boniEnganche = (enganche * ((parseFloat(this.props.objConfiguracion.tasafinanciamiento) * parseFloat(this.props.objConfiguracion.plazomaximo)) / parseInt(100))).toFixed(2);
+            /** Se calcula el total */
+            var total = (parseFloat(importeproducto) - parseFloat(enganche) - parseFloat(boniEnganche)).toFixed(2);
+            /** Se asignan los valores a las variables necesarias para llevar el conteo */
+            porcentajeEnganche = parseFloat(parseFloat(porcentajeEnganche) + parseFloat(enganche)).toFixed(2);
+            bonificacionEnganche = parseFloat(parseFloat(bonificacionEnganche) + parseFloat(boniEnganche)).toFixed(2);
+            totalAdeudo = parseFloat(parseFloat(totalAdeudo) + parseFloat(total)).toFixed(2);
+        }
+        /** Se asigna la informacion al state */
+        this.asignarValorState('enganche',parseFloat(porcentajeEnganche).toFixed(2),'informacionTotal');
+        this.asignarValorState('bonificacionenganche',parseFloat(bonificacionEnganche).toFixed(2),'informacionTotal');
+        this.asignarValorState('total',parseFloat(totalAdeudo).toFixed(2),'informacionTotal');
     }
 
     /** Metodos que se ejcutaran al realizar click en los botones */
     onClickAgregarArticulo(){
         /** Validacion para determinar si se agregara el elemento seleccionado al listado */
         if(this.state.opcionArticulo.id > 0){
+            /** Se crea un objeto para asignar la informacion */
+            var objArt = {
+                clavearticulo:this.state.opcionArticulo.clavearticulo,
+                descripcion:this.state.opcionArticulo.descripcion,
+                existencia:this.state.opcionArticulo.existencia,
+                //id:this.state.opcionArticulo.id,
+                modelo:this.state.opcionArticulo.modelo,
+                precio:this.state.opcionArticulo.precio,
+                cantidad:this.state.opcionArticulo.cantidad
+            };
+
             /** Se agrega el articulo al listado  */
-            this.state.listadoArticulosSeleccionados.push(this.state.opcionArticulo);
+            this.state.listadoArticulosSeleccionados.push(objArt);
+
             /** Prueba de error */
             this.onChangeSelectArticulo(this.state.listadoArticulosSeleccionados);
         }
+
+        /** Se limpia el typeahead */
+        this._Typeahead.clear();
+    }
+
+    onClickEliminarArticulo(objArticulo){
+        console.log("Articulo que recibe el metodo");
+        console.log(objArticulo);
+        /** Variables de contenedor */
+        var arrArticulosSeleccionados = [];
+        /** Se recorre el arreglo de elementos seleccionados */
+        for(var i = 0; i < this.state.listadoArticulosSeleccionados.length; i++){
+            var articuloSelecc = this.state.listadoArticulosSeleccionados[i];
+            console.log("Articulo que se obtiene del arreglo");
+            console.log(articuloSelecc);
+            /** Validacion para determinar si es el mismo articulo a eliminar */
+            if(objArticulo.clavearticulo !== articuloSelecc.clavearticulo){
+                arrArticulosSeleccionados.push(articuloSelecc);
+            }
+            console.log("Arreglo temporal de guardado");
+            console.log(arrArticulosSeleccionados);
+        }
+        /** Se limpia el arreglo que contiene los articulos selecionados */
+        this.state.listadoArticulosSeleccionados.length = 0;
+        console.log("Articulos en el arreglo despues de limpiar");
+        console.log(this.state.listadoArticulosSeleccionados);
+
+        console.log("Articulos en el arreglo temporal antes de guardar en el arreglo anterior");
+        console.log(arrArticulosSeleccionados);
+        /** Se agrega el arreglo que contiene los articulos que no se eliminaron del listado de articulos seleccionados */
+        this.state.listadoArticulosSeleccionados = arrArticulosSeleccionados;
+        console.log("Articulos en el arreglo despues de asignar el nuevo arreglo");
+        console.log(this.state.listadoArticulosSeleccionados);
+        /** Se realiza la resta del articulo eliminado */
+        this.calcularInfTotalEngancheBonificacion(); 
     }
 
     onClickSiguiente(){
@@ -318,7 +392,6 @@ class VistaAgregarVenta extends Component {
     }
 
     render(){
-
         /** variable donde se guardara el div de los pagos */
         let seleccionarPagos;
         let mostrarModalCargando;
@@ -329,7 +402,7 @@ class VistaAgregarVenta extends Component {
                 <SeccionPagosMesos 
                     objInformacionTotal = {this.state.informacionTotal}
                     objConfiguracion = {this.props.objConfiguracion}
-                    onClickRadioButton = {this.onChangeRadioButton}
+                    onClickRadioButton = {(opcion) => this.onChangeRadioButton(opcion)}
                 />
             </div>
         }else{
@@ -386,7 +459,7 @@ class VistaAgregarVenta extends Component {
                                             id="typeaheadclientes"
                                             options={this.props.listadoClientes}
                                             placeholder="Seleccione ..."
-                                            labelKey="nombre"
+                                            labelKey={(option) => `${option.clavecliente} - ${option.nombre}`}
                                             onChange={(s) => this.onChangeSelectCliente(s)}
                                         />
                                     </div>
@@ -398,7 +471,7 @@ class VistaAgregarVenta extends Component {
                                                 RFC 
                                             </span>
                                         </div>
-                                        <input type="text" value={this.state.opcionesSeleccionadas.nombrecliente} disabled={true} 
+                                        <input type="text" value={this.state.opcionesSeleccionadas.rfccliente} disabled={true} 
                                                className="form-control"/>
                                     </div>
                                 </div>
@@ -416,13 +489,14 @@ class VistaAgregarVenta extends Component {
                                             options={this.props.listadoArticulos}
                                             placeholder="Seleccione ..."
                                             labelKey={(option) => `${option.descripcion} - ${option.modelo}`}
-                                            onChange={(s) => this.onChangeSelectArticulo(s)} 
+                                            onChange={(s) => this.onChangeSelectArticulo(s)}
+                                            ref = {(refArt) => this._Typeahead = refArt}
                                         />
                                     </div>
                                 </div>
                                 <div className="col-xs-1 col-sm-1 col-md-1">
                                     <div className="input-group">
-                                        <Button color="primary" id="btnAddArticulo" onClick={this.onClickAgregarArticulo.bind(this)}>
+                                        <Button color="primary" id="btnAddArticulo" onClick={() => this.onClickAgregarArticulo()}>
                                             <i className="fa fa-plus "> </i>
                                         </Button>
                                     </div>
@@ -445,8 +519,9 @@ class VistaAgregarVenta extends Component {
                                             {this.state.listadoArticulosSeleccionados.map((e) => 
                                                 <RenglonArtVenta
                                                     articulo = {e}
-                                                    onChangeInput = {this.onChangeInputCantidad}
+                                                    onChangeInput = {(objInformacion) => this.onChangeInputCantidad(objInformacion)}
                                                     objConfiguracion = {this.props.objConfiguracion}
+                                                    onClickDelete = {(objArticulo) => this.onClickEliminarArticulo(objArticulo)}
                                                 />
                                             )}
                                         </tbody>
@@ -459,7 +534,7 @@ class VistaAgregarVenta extends Component {
                                         <div className="input-group">
                                             <div className="input-group-prepend" >
                                                 <span className="input-group-text">
-                                                    Enganche {this.state.informacionTotal.enganche}
+                                                    Enganche: {this.state.informacionTotal.enganche}
                                                 </span>
                                             </div>
                                         </div>
@@ -472,7 +547,7 @@ class VistaAgregarVenta extends Component {
                                         <div className="input-group">
                                             <div className="input-group-prepend" >
                                                 <span className="input-group-text">
-                                                    Bonificacion Enganche {this.state.informacionTotal.bonificacionenganche} 
+                                                    Bonificacion Enganche: {this.state.informacionTotal.bonificacionenganche} 
                                                 </span>
                                             </div>
                                         </div>
@@ -485,7 +560,7 @@ class VistaAgregarVenta extends Component {
                                         <div className="input-group">
                                             <div className="input-group-prepend" >
                                                 <span className="input-group-text">
-                                                    Total {this.state.informacionTotal.total}
+                                                    Total: {this.state.informacionTotal.total}
                                                 </span>
                                             </div>
                                         </div>
@@ -498,13 +573,13 @@ class VistaAgregarVenta extends Component {
                             <div className="row mt-4">
                                 <div className="col-xs-12 col-sm-12 col-md-12">
                                     <div className="float-xs-right float-sm-right float-md-right">
-                                        <Button id="btnCancelar" className="mr-1" color="danger" onClick={this.onClickCancelar}>
+                                        <Button id="btnCancelar" className="mr-1" color="danger" onClick={() => this.onClickCancelar()}>
                                             Cancelar
                                         </Button>
-                                        <Button id="btnSiguiente" color="success" onClick={this.onClickSiguiente}>
+                                        <Button id="btnSiguiente" color="success" onClick={() => this.onClickSiguiente()}>
                                             Siguiente
                                         </Button>
-                                        <Button id="btnGuardar" color="success" onClick={this.onClickGuardar}>
+                                        <Button id="btnGuardar" color="success" onClick={() => this.onClickGuardar()}>
                                             Guardar
                                         </Button>
                                     </div>

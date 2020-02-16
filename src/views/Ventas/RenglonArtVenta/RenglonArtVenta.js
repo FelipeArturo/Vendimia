@@ -6,10 +6,10 @@ class RenglonArtVenta extends Component{
     constructor(){
         super();
 
-        this.asignarValorState = this.asignarValorState.bind(this);
-        this.calcularInformacionInicial = this.calcularInformacionInicial.bind(this);
+        //this.asignarValorState = this.asignarValorState.bind(this);
+        //this.calcularInformacionInicial = this.calcularInformacionInicial.bind(this);
 
-        this.onChange = this.onChange.bind(this);
+        //this.onChange = this.onChange.bind(this);
 
         this.state = {};
         this.state.objArticulo={
@@ -17,7 +17,8 @@ class RenglonArtVenta extends Component{
             descripcion: '',
             existencia: 0,
             modelo: '',
-            precio: 0
+            precio: 0,
+            cantidad: 1
         };
         this.state.objConfiguracion={
             tasafinanciamiento:0,
@@ -28,7 +29,8 @@ class RenglonArtVenta extends Component{
             cantidad:1,
             precio:0,
             importe:0
-        }
+        };
+        this.state.articulosListado=[];
     }
 
     /** Metodos que se ejecutaran ants y despues de que la vista se renderize */
@@ -51,13 +53,15 @@ class RenglonArtVenta extends Component{
     calcularInformacionInicial(){
         /** Se calcula el iva del producto */
         var iva = (parseFloat(this.state.objArticulo.precio) * (1 + ((parseFloat(this.state.objConfiguracion.tasafinanciamiento) * parseInt(this.state.objConfiguracion.plazomaximo)) / parseFloat(100)))).toFixed(2);
+        //console.log("IVA: " + iva);
         /** Se asigna el valor del precio al state */
-        this.asignarValorState('precio',(parseFloat(this.state.objArticulo.precio) + parseFloat(iva)).toFixed(2),'cantidadArticulos');
+        this.asignarValorState('precio',iva,'cantidadArticulos');
         /** Se asigna el importe al renglon */
-        this.asignarValorState('importe',(parseFloat(this.state.cantidadArticulos.precio) * parseInt(this.state.cantidadArticulos.cantidad)),'cantidadArticulos');
-
+        this.asignarValorState('importe',(parseFloat(this.state.cantidadArticulos.precio) * parseInt(this.state.cantidadArticulos.cantidad)).toFixed(2),'cantidadArticulos');
+        /** Se asigna la cantidad al objeto state */
+        this.asignarValorState('cantidad',parseInt(this.state.cantidadArticulos.cantidad),'objArticulo');
         /** Se regresa el objeto con los precios al onchange del props */
-        this.props.onChangeInput(this.state.cantidadArticulos);
+        this.props.onChangeInput(this.state.objArticulo);
     }
 
     /** Metodo para poder asignar los valores al state */
@@ -112,13 +116,23 @@ class RenglonArtVenta extends Component{
                     }
                     
                     /** Se asigna el valor al state */
-                    this.asignarValorState(propiedad,target.value,objeto);
+                    this.asignarValorState(propiedad,parseInt(target.value),objeto);
                 }
             }
 
             /** Manda a llamar el metodo que realiza los calculos nuevamente */
             this.calcularInformacionInicial();
         }
+    }
+
+    /** Metodo para el onclick al momento de eliminar un articulo */
+    onClickEliminar(){
+        /** Se realiza el cambio del precio por el importe */
+        var importe = parseInt(this.state.cantidadArticulos.cantidad) * parseFloat(this.state.cantidadArticulos.precio);
+        /** Se asigna el nuevo valor del precio al objeto del renglon seleccionado */
+        this.asignarValorState('precio',importe,'objArticulo');
+        /** Se regresa el objeto */
+        this.props.onClickDelete(this.state.objArticulo);
     }
 
     render(){
@@ -141,7 +155,9 @@ class RenglonArtVenta extends Component{
                     <label>{this.state.cantidadArticulos.importe}</label>
                 </td>
                 <td>
-                    
+                    <button className="btn btn-outline-danger" onClick={(s) => this.onClickEliminar(s)}>
+                        <i className="fa fa-trash-o"></i>
+                    </button>
                 </td>
             </tr>
         )
